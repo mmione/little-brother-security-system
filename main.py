@@ -4,7 +4,7 @@ import os
 import cv2
 import time
 import logging
-import datetime
+
 
 """
 Histogram Oriented Detection - academic paper on this available here:
@@ -12,6 +12,7 @@ https://lear.inrialpes.fr/people/triggs/pubs/Dalal-cvpr05.pdf
 
 """
 FRAMERATE = 20
+COOLDOWN = 10
 hog = cv2.HOGDescriptor()
 hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
 
@@ -19,7 +20,6 @@ cv2.startWindowThread()
 if not os.path.isdir("./img"):
     os.mkdir("./img")
 
-# open DroidCam video stream
 def handler(cap):
     # We are going through frame by frame.
     ret, frame = cap.read()
@@ -66,7 +66,7 @@ def main():
             record = False
         frame, hits = handler(cap)
         if hits != []:
-            end = time.time() + 30
+            end = time.time() + COOLDOWN
             record = True
 
         if cv2.waitKey(1) & 0xFF == ord("q"):
