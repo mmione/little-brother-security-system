@@ -3,8 +3,11 @@ import smtplib, ssl
 sender = "camera.notifier99@gmail.com"
 recipient = "mattmione37@gmail.com"
 
-message = "Hello! " # This will have to change based on the context when we send.
+subject = "NOTIFICATION FROM SECURITY SERVICE"
+body = "Hello! " # This will have to change based on the context when we send.
 
+# Assemble the subject + body using Python's string interpolation.
+message = f'Subject: {subject}\n\n{body}'
 password = str(input("Type your password: "))
 
 # Creating a server object from the smtplib library on port 587. 
