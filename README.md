@@ -1,2 +1,2 @@
-# :camera: little brother :camera_with_flash:
+# :camera: little brother :camera:
 ## A non-instrusive, open source, and simple home-monitoring solution. 
