@@ -104,7 +104,7 @@ def main():
                 result = cv2.imwrite(r'lastframe.jpg',frame)
 
                 # Sending email here.
-                process2 = multiprocessing.Process(target=send_email, args=['firstframe.jpg','lastframe.jpg'])
+                process2 = multiprocessing.Process(target=send_email, args=[['firstframe.jpg','lastframe.jpg']])
                 process2.start()
 
                 #email_connect.send_email(['firstframe.jpg','lastframe.jpg'])
