@@ -8,6 +8,20 @@ Turn an old phone 📱 into something useful again using Python and OpenCV.
 * Old phone (Android or IOS based)
 * DroidCam or any other IP camera software
 * a LAN (you don't even need internet access, just the router)
+## Installation
+```bash
+python -m pip install -r requirements.txt
+```
+## Configuration
+
+Specific things such as the email to send info to, etc. should be specified in the root of the cloned repository,
+in a YAML file named __config.yml__. An example is shown below:
+
+```yaml
+email: example@gmail.com   # email that you want information sent to by the application
+ip: 192.168.0.122:4747      # IP of the droidcam/ip cam instance
+framerate: 5                # Framerate of the exported video
+```
 
 ## References
 
