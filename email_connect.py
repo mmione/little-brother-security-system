@@ -6,7 +6,7 @@ from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
 import yaml
 
-def send_email(filenames):
+def send_email(filenames, password):
 #Gets config info so we can access the user email address
     try:
         config = yaml.safe_load(open("config.yml", "r"))
@@ -23,7 +23,7 @@ def send_email(filenames):
            'of your camera. Please find attached photos of the incident ' +\
            'that was detected. \nPlease do not reply to this message as '+\
            'this email is not monitored.\n\nThank you, \nTeam Little Brother '
-    password = config.get('password')
+    #password = config.get('password')
 
     message = MIMEMultipart()
     message["From"] = sender

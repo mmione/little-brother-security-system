@@ -81,6 +81,9 @@ def main():
     # This is process2, needs to be constructed in the process that will spawn it.
     #process2 = multiprocessing.Process(target=send_email, args=[filenames])
 
+    # We ask the user for their password each time, for security reasons we don't want this in the config.yml
+    password = str(input("Before the program starts, enter your email's password and press enter! "))
+
     while True:
         logging.debug(f"Recording status: {str(record)}")
         if record and time.time() < end:
@@ -104,10 +107,9 @@ def main():
                 result = cv2.imwrite(r'lastframe.jpg',frame)
 
                 # Sending email here.
-                process2 = multiprocessing.Process(target=send_email, args=[['firstframe.jpg','lastframe.jpg']])
+                process2 = multiprocessing.Process(target=send_email, args=[['firstframe.jpg','lastframe.jpg'],[password]])
                 process2.start()
-
-                #email_connect.send_email(['firstframe.jpg','lastframe.jpg'])
+                
                 start_time = 0
                 
         if cv2.waitKey(1) & 0xFF == ord("q"):
