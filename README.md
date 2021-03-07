@@ -6,12 +6,16 @@ Turn an old phone 📱 into something useful again using Python and OpenCV.
 ![The team](./doc/demo.jpg)
 
 Pictured above is the team, captured intelligently by the app!
+
+[Devpost link](https://devpost.com/software/little-brother-r87)
+
 ## What do I need? 
 
 * Old phone (Android or IOS based)
+* A host machine with at least a dual-core CPU
 * DroidCam or any other IP camera software
-* a LAN (you don't even need internet access, just the router)
-* a throwaway Gmail account from which you want to send emails 
+* A local area network (you don't even need internet access, just the router)
+* A Gmail account from which you want to send emails 
 ## Installation
 ```bash
 python -m pip install -r requirements.txt
@@ -22,10 +26,10 @@ Specific things such as the email to send info to, etc. should be specified in t
 in a YAML file named __config.yml__. An example is shown below:
 
 ```yaml
-email: example@gmail.com   # email that you want information sent to by the application
-ip: 192.168.0.122:4747      # IP of the droidcam/ip cam instance
-framerate: 5                # Framerate of the exported video
-sender: camera.notifier99@gmail.com # Email you are using to send notifications
+email: example@gmail.com            # email that you want information sent to by the application
+ip: 192.168.0.122:4747              # IP address (with port) of the IP cam instance
+framerate: 10                       # Framerate of the exported video
+sender: examplesender@gmail.com     # Email you are using to send notifications
 ```
 Next, make sure you configure your gmail account from which you want to **send** emails. I recommend creating a **throwaway** account quickly to serve as your email for this project. Then, go ahead and toggle the following setting to *on* as seen in the attached image:
 
