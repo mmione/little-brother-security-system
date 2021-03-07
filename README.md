@@ -8,6 +8,7 @@ Turn an old phone 📱 into something useful again using Python and OpenCV.
 * Old phone (Android or IOS based)
 * DroidCam or any other IP camera software
 * a LAN (you don't even need internet access, just the router)
+* a Gmail account from which you want to send emails 
 ## Installation
 ```bash
 python -m pip install -r requirements.txt
@@ -22,6 +23,10 @@ email: example@gmail.com   # email that you want information sent to by the appl
 ip: 192.168.0.122:4747      # IP of the droidcam/ip cam instance
 framerate: 5                # Framerate of the exported video
 ```
+Next, make sure you configure your gmail account from which you want to **send** emails by toggling the following setting to *on* as seen in the attached image:
+[google settings](https://github.com/mmione/little-brother/blob/master/doc/google-settings.png)
+
+[This can be found by clicking here!](https://myaccount.google.com/security)
 
 ## References
 
