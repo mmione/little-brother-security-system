@@ -8,7 +8,10 @@ Turn an old phone 📱 into something useful again using Python and OpenCV.
 * Old phone (Android or IOS based)
 * DroidCam or any other IP camera software
 * a LAN (you don't even need internet access, just the router)
-
+## Installation
+```bash
+python -m pip install -r requirements.txt
+```
 ## Configuration
 
 Specific things such as the email to send info to, etc. should be specified in the root of the cloned repository,
