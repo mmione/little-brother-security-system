@@ -4,9 +4,9 @@ import cv2
 import time
 import yaml
 import logging
-import email_connect
+from email_connect import * 
 
-
+import multiprocessing
 """
 Histogram Oriented Detection - academic paper on this available here:
 https://lear.inrialpes.fr/people/triggs/pubs/Dalal-cvpr05.pdf 
@@ -64,7 +64,7 @@ def handler(cap):
     return frame, boxes, flag, flag_time
 
 def main():
-    cap = cv2.VideoCapture(f"http://{IP}/video")
+    cap = cv2.VideoCapture(f"https://{IP}/video")
     out = cv2.VideoWriter(
         "stream.avi", cv2.VideoWriter_fourcc(*"MJPG"), FRAMERATE, (640, 480)
     )
@@ -76,6 +76,10 @@ def main():
     start_time = 0
     end_time = 0
     
+    # Flag to implement processes--when flag is 0 we are able to send emails.  
+    flag = 0
+    # This is process2, needs to be constructed in the process that will spawn it.
+    #process2 = multiprocessing.Process(target=send_email, args=[filenames])
 
     while True:
         logging.debug(f"Recording status: {str(record)}")
@@ -93,10 +97,17 @@ def main():
                 save_frame = frame
             elif start_time > 0:
                 end_time = flag_time
+
+            # This is intended to be an if.
             if end_time-start_time > 30 and end_time-start_time < 60:
                 result = cv2.imwrite(r'firstframe.jpg',save_frame)
                 result = cv2.imwrite(r'lastframe.jpg',frame)
-                email_connect.send_email(['firstframe.jpg','lastframe.jpg'])
+
+                # Sending email here.
+                process2 = multiprocessing.Process(target=send_email, args=['firstframe.jpg','lastframe.jpg'])
+                process2.start()
+
+                #email_connect.send_email(['firstframe.jpg','lastframe.jpg'])
                 start_time = 0
                 
         if cv2.waitKey(1) & 0xFF == ord("q"):
@@ -108,10 +119,13 @@ def main():
     cv2.destroyAllWindows()
     cv2.waitKey(1)
 
+# Define processes, process1 is our main function. 
+process1 = multiprocessing.Process(target=main)
 
 if __name__ == "__main__":
     try:
-        main()
+        # Starting our main() function as a process.
+        process1.start()
     except cv2.error as e:
         logger.error("Encountered error with cv2, try rebooting Droidcam.")
         logger.error(str(e))
