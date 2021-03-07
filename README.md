@@ -15,7 +15,7 @@ Specific things such as the email to send info to, etc. should be specified in t
 in a YAML file named __config.yml__. An example is shown below:
 
 ```yaml
-email: rmione33@gmail.com   # email that you want information sent to by the application
+email: example@gmail.com   # email that you want information sent to by the application
 ip: 192.168.0.122:4747      # IP of the droidcam/ip cam instance
 framerate: 5                # Framerate of the exported video
 ```
