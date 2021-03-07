@@ -5,7 +5,7 @@ Turn an old phone 📱 into something useful again using Python and OpenCV.
 
 ![The team](./doc/demo.jpg)
 
-_Pictured above is the team, captured intelligently by the app!
+Pictured above is the team, captured intelligently by the app!
 ## What do I need? 
 
 * Old phone (Android or IOS based)
