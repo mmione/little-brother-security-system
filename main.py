@@ -63,7 +63,7 @@ def handler(cap):
 
     return frame, boxes, flag, flag_time
 
-def main():
+def main(password):
     cap = cv2.VideoCapture(f"https://{IP}/video")
     out = cv2.VideoWriter(
         "stream.avi", cv2.VideoWriter_fourcc(*"MJPG"), FRAMERATE, (640, 480)
@@ -78,11 +78,7 @@ def main():
     
     # Flag to implement processes--when flag is 0 we are able to send emails.  
     flag = 0
-    # This is process2, needs to be constructed in the process that will spawn it.
-    #process2 = multiprocessing.Process(target=send_email, args=[filenames])
-
-    # We ask the user for their password each time, for security reasons we don't want this in the config.yml
-    password = str(input("Before the program starts, enter your email's password and press enter! "))
+    
 
     while True:
         logging.debug(f"Recording status: {str(record)}")
@@ -106,10 +102,11 @@ def main():
                 result = cv2.imwrite(r'firstframe.jpg',save_frame)
                 result = cv2.imwrite(r'lastframe.jpg',frame)
 
+                # This is process2, needs to be constructed in the process that will spawn it.
                 # Sending email here.
                 process2 = multiprocessing.Process(target=send_email, args=[['firstframe.jpg','lastframe.jpg'],[password]])
                 process2.start()
-                
+
                 start_time = 0
                 
         if cv2.waitKey(1) & 0xFF == ord("q"):
@@ -121,8 +118,12 @@ def main():
     cv2.destroyAllWindows()
     cv2.waitKey(1)
 
+# Bruh
+# We ask the user for their password each time, for security reasons we don't want this in the config.yml
+password = str(input("Before the program starts, enter your email's password and press enter! \n"))
+
 # Define processes, process1 is our main function. 
-process1 = multiprocessing.Process(target=main)
+process1 = multiprocessing.Process(target=main, args=[password])
 
 if __name__ == "__main__":
     try:
