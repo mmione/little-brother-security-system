@@ -4,9 +4,10 @@ import cv2
 import time
 import yaml
 import logging
-from email_connect import * 
+from email_connect import *
 
 import multiprocessing
+
 """
 Histogram Oriented Detection - academic paper on this available here:
 https://lear.inrialpes.fr/people/triggs/pubs/Dalal-cvpr05.pdf 
@@ -34,6 +35,7 @@ cv2.startWindowThread()
 if not os.path.isdir("./img"):
     os.mkdir("./img")
 
+
 def handler(cap):
     flag = False
     flag_time = 0
@@ -54,7 +56,7 @@ def handler(cap):
         # display the detected boxes in the colour picture
         cv2.rectangle(frame, (xA, yA), (xB, yB), (0, 255, 0), 2)
         # cv2.imwrite(filename=f"./img/{datetime.datetime.now()}.png", img=frame)
-        if yB < 400:
+        if yB > 320:
             flag = True
             flag_time = time.time()
     cv2.imshow("Security Camera Feed", frame)
@@ -63,23 +65,22 @@ def handler(cap):
 
     return frame, boxes, flag, flag_time
 
-def main():
-    cap = cv2.VideoCapture(f"https://{IP}/video")
+
+def main(password):
+    cap = cv2.VideoCapture(f"http://{IP}/video")
     out = cv2.VideoWriter(
         "stream.avi", cv2.VideoWriter_fourcc(*"MJPG"), FRAMERATE, (640, 480)
     )
-
+    print(password)
     # Initializing of the control variables
     frame, hits = None, []
     record = False
     end = 0
     start_time = 0
     end_time = 0
-    
-    # Flag to implement processes--when flag is 0 we are able to send emails.  
+
+    # Flag to implement processes--when flag is 0 we are able to send emails.
     flag = 0
-    # This is process2, needs to be constructed in the process that will spawn it.
-    #process2 = multiprocessing.Process(target=send_email, args=[filenames])
 
     while True:
         logging.debug(f"Recording status: {str(record)}")
@@ -99,17 +100,20 @@ def main():
                 end_time = flag_time
 
             # This is intended to be an if.
-            if end_time-start_time > 30 and end_time-start_time < 60:
-                result = cv2.imwrite(r'firstframe.jpg',save_frame)
-                result = cv2.imwrite(r'lastframe.jpg',frame)
+            if end_time - start_time > 30 and end_time - start_time < 60:
+                result = cv2.imwrite(r"firstframe.jpg", save_frame)
+                result = cv2.imwrite(r"lastframe.jpg", frame)
 
+                # This is process2, needs to be constructed in the process that will spawn it.
                 # Sending email here.
-                process2 = multiprocessing.Process(target=send_email, args=[['firstframe.jpg','lastframe.jpg']])
+                process2 = multiprocessing.Process(
+                    target=send_email,
+                    args=[["firstframe.jpg", "lastframe.jpg"], password],
+                )
                 process2.start()
 
-                #email_connect.send_email(['firstframe.jpg','lastframe.jpg'])
                 start_time = 0
-                
+
         if cv2.waitKey(1) & 0xFF == ord("q"):
             break
 
@@ -119,9 +123,15 @@ def main():
     cv2.destroyAllWindows()
     cv2.waitKey(1)
 
-# Define processes, process1 is our main function. 
-process1 = multiprocessing.Process(target=main)
 
+# Bruh
+# We ask the user for their password each time, for security reasons we don't want this in the config.yml
+password = str(
+    input("Before the program starts, enter your email's password and press enter! \n")
+)
+
+# Define processes, process1 is our main function.
+process1 = multiprocessing.Process(target=main, args=[password])
 if __name__ == "__main__":
     try:
         # Starting our main() function as a process.

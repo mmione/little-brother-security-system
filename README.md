@@ -3,6 +3,9 @@
 
 Turn an old phone 📱 into something useful again using Python and OpenCV. 
 
+![The team](./doc/demo.jpg)
+
+Pictured above is the team, captured intelligently by the app!
 ## What do I need? 
 
 * Old phone (Android or IOS based)
@@ -22,6 +25,7 @@ in a YAML file named __config.yml__. An example is shown below:
 email: example@gmail.com   # email that you want information sent to by the application
 ip: 192.168.0.122:4747      # IP of the droidcam/ip cam instance
 framerate: 5                # Framerate of the exported video
+sender: camera.notifier99@gmail.com # Email you are using to send notifications
 ```
 Next, make sure you configure your gmail account from which you want to **send** emails. I recommend creating a **throwaway** account quickly to serve as your email for this project. Then, go ahead and toggle the following setting to *on* as seen in the attached image:
 
