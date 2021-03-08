@@ -7,21 +7,21 @@ Turn an old phone 📱 into something useful again using Python and OpenCV.
 
 Pictured above is the team, captured intelligently by the app!
 
-[Devpost link](https://devpost.com/software/little-brother-r87)
+[Devpost link](https://devpost.com/software/little-brother-r87vhn)
 
 ## What do I need? 
 
 * Old phone (Android or IOS based)
-* A host machine with at least a dual-core CPU
-* DroidCam or any other IP camera software
+  * DroidCam or any other IP camera software
+* A host machine with at least a dual-core CPU to run the application.
 * A local area network (you don't even need internet access, just the router)
 * A Gmail account from which you want to send emails 
 ## Installation
 ```bash
 python -m pip install -r requirements.txt
 ```
-## Configuration
-
+## How to use 
+### Necessary Configuration
 Specific things such as the email to send info to, etc. should be specified in the root of the cloned repository,
 in a YAML file named __config.yml__. An example is shown below:
 
@@ -36,7 +36,11 @@ Next, make sure you configure your gmail account from which you want to **send**
 ![google settings](https://github.com/mmione/little-brother/blob/master/doc/google-settings.png)
 
 [This can also be found by clicking here!](https://myaccount.google.com/security) Google warns there is a security risk by doing this, so make sure you have a strong password and that this account is not an important one to you.
-
+### Running the App
+After the above configuration has been completed, simply run in this in the root of the cloned repository.
+```bash
+python main.py
+```
 ## References
 
 This project uses openCV's Histogram of Oriented Gradients method to detect humans in its field of view. This paper goes 
